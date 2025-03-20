@@ -91,37 +91,25 @@ export const Card = ({
       },
     },
     exit: {
-      x: `calc(-50% + ${offset.x}px)`,
-      y: [centerY, offset.y],
-      rotate: [0, offset.rotation],
-      rotateY: [180, 0],
+      x: [
+        `calc(-50% + ${offset.x}px)`,
+        `calc(-50% + ${offset.x + 600}px)`,
+        `calc(-50% + ${offset.x + 1500}px)`,
+      ],
+      y: [centerY, centerY - 150, -1000],
+      rotate: [0, 25, 40 + Math.random() * 15],
+      rotateY: 180,
       zIndex: 10,
-      translateZ: [200, 200, 0],
+      opacity: [1, 1, 0],
       transition: {
-        duration: 0.8,
-        times: [0, 0.6, 1],
-        ease: "easeInOut",
+        duration: 2,
+        times: [0, 0.3, 1],
+        ease: [0.5, 0.05, 0.1, 0.3],
+        opacity: {
+          delay: 1.5,
+          duration: 1.0,
+        },
         rotateY: {
-          duration: 0.5,
-          ease: "easeInOut",
-        },
-        y: {
-          delay: 0.5,
-          duration: 0.3,
-          ease: "easeOut",
-        },
-        rotate: {
-          delay: 0.5,
-          duration: 0.3,
-          ease: "easeOut",
-        },
-        translateZ: {
-          delay: 0.5,
-          duration: 0.3,
-          ease: "easeOut",
-        },
-        zIndex: {
-          delay: 0.8,
           duration: 0,
         },
       },

@@ -43,6 +43,14 @@ export const Cards = ({ numCards = 10 }: CardsProps) => {
       const card = newCards.find((c) => c.id === cardId);
       if (card) {
         if (card.isFlipped) {
+          // When a flipped card is clicked, mark it for removal
+          // The actual removal will happen after animation completes
+          setTimeout(() => {
+            setCards((currentCards) =>
+              currentCards.filter((c) => c.id !== cardId)
+            );
+          }, 2500); // Match the duration of the exit animation
+        } else {
           card.offset = generateRandomOffset();
         }
         card.isFlipped = !card.isFlipped;
