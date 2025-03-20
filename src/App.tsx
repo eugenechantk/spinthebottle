@@ -4,7 +4,7 @@ import Spinner from "./component/Spinner";
 
 function App() {
   return (
-    <div className="relative h-full w-full flex flex-col">
+    <div className="relative h-full w-full flex flex-col overflow-hidden bg-[#F5F2E9]">
       <Spinner />
       <Cards numCards={5} />
     </div>

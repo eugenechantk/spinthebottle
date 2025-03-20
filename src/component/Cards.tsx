@@ -11,6 +11,16 @@ export const Cards = ({ numCards = 10 }: CardsProps) => {
   // Use the smaller of numCards or the actual number of questions available
   const actualNumCards = Math.min(numCards, questions.length);
 
+  const handleRestart = () => {
+    const newCards = Array.from({ length: actualNumCards }, (_, index) => ({
+      id: index,
+      question: questions[index],
+      offset: generateRandomOffset(),
+      isFlipped: false,
+    }));
+    setCards(newCards);
+  };
+
   const [cards, setCards] = useState<
     Array<{
       id: number;
@@ -72,6 +82,14 @@ export const Cards = ({ numCards = 10 }: CardsProps) => {
           onFlip={handleFlip}
         />
       ))}
+      {cards.length === 0 && (
+        <button
+          className="px-4 py-2 rounded-full border border-gray-800 flex items-center justify-center mx-auto hover:bg-gray-100 text-gray-600 hover:text-gray-800 font-mono uppercase tracking-wider text-xs"
+          onClick={handleRestart}
+        >
+          Restart
+        </button>
+      )}
     </div>
   );
 };
