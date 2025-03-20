@@ -71,7 +71,7 @@ function App() {
 
       <Spinner onSpinStateChange={handleSpinStateChange} />
       {message && (
-        <span className="text-center w-full block absolute bottom-[180px] text-base px-30 text-gray-600">
+        <span className="text-center w-full block absolute bottom-[140px] text-base px-30 text-gray-600">
           {message}
         </span>
       )}
