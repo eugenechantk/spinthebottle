@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import "./Cards.css";
 
 interface CardProps {
@@ -14,8 +15,29 @@ interface CardProps {
 }
 
 export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
+  const [centerY, setCenterY] = useState(-300);
+
+  useEffect(() => {
+    const updateCenterY = () => {
+      const viewportHeight = window.innerHeight;
+      const cardHeight = 392;
+      const scrollY = window.scrollY;
+      // Move up by 80% of viewport height, accounting for card height
+      const newCenterY = -(viewportHeight * 0.8 - cardHeight / 2);
+      setCenterY(newCenterY);
+    };
+
+    updateCenterY();
+    window.addEventListener("resize", updateCenterY);
+    window.addEventListener("scroll", updateCenterY);
+    return () => {
+      window.removeEventListener("resize", updateCenterY);
+      window.removeEventListener("scroll", updateCenterY);
+    };
+  }, []);
+
   const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent event from bubbling to container
+    e.stopPropagation();
     if (isTop) {
       onFlip(id);
     }
@@ -23,7 +45,7 @@ export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
 
   const inDeckVariants = {
     initial: {
-      x: offset.x,
+      x: `calc(-50% + ${offset.x}px)`,
       y: offset.y,
       rotate: offset.rotation,
       rotateY: 0,
@@ -31,8 +53,8 @@ export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
       translateZ: 0,
     },
     exit: {
-      x: offset.x,
-      y: offset.y - 160,
+      x: `calc(-50% + ${offset.x}px)`,
+      y: centerY,
       rotate: 0,
       rotateY: 0,
       zIndex: 10,
@@ -46,8 +68,8 @@ export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
 
   const flippedVariants = {
     initial: {
-      x: offset.x,
-      y: offset.y - 160,
+      x: `calc(-50% + ${offset.x}px)`,
+      y: centerY,
       rotate: 0,
       rotateY: 0,
       zIndex: 10,
@@ -61,32 +83,32 @@ export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
       },
     },
     exit: {
-      x: offset.x,
-      y: [offset.y - 160, offset.y],
+      x: `calc(-50% + ${offset.x}px)`,
+      y: [centerY, offset.y],
       rotate: [0, offset.rotation],
       rotateY: [180, 0],
       zIndex: 10,
       translateZ: [200, 200, 0],
       transition: {
         duration: 0.8,
-        times: [0, 0.6, 1], // Complete rotation by 60% of the animation
+        times: [0, 0.6, 1],
         ease: "easeInOut",
         rotateY: {
           duration: 0.5,
           ease: "easeInOut",
         },
         y: {
-          delay: 0.5, // Start moving down after rotation
+          delay: 0.5,
           duration: 0.3,
           ease: "easeOut",
         },
         rotate: {
-          delay: 0.5, // Start rotating after flip
+          delay: 0.5,
           duration: 0.3,
           ease: "easeOut",
         },
         translateZ: {
-          delay: 0.5, // Start moving back after flip
+          delay: 0.5,
           duration: 0.3,
           ease: "easeOut",
         },

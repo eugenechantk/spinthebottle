@@ -20,7 +20,7 @@ export default function Spinner() {
   };
 
   return (
-    <div className="spinner-container">
+    <div className="flex flex-1 min-h-0 justify-center items-center">
       <motion.div
         className="bottle"
         animate={controls}
