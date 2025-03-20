@@ -5,34 +5,11 @@
   min-height: 300px;
 }
 
-.bottle {
-  position: relative;
+.beer-bottle {
+  width: 360px;
+  height: auto;
   cursor: pointer;
-  transform-origin: center center;
-  transition: transform 0.2s;
-}
-
-.bottle:hover {
-  transform: scale(1.05);
-}
-
-.bottle-body {
-  width: 60px;
-  height: 160px;
-  background: #2c8a6b;
-  border-radius: 5px 5px 30px 30px;
-  position: relative;
-}
-
-.bottle-neck {
-  width: 20px;
-  height: 40px;
-  background: #2c8a6b;
-  position: absolute;
-  top: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 4px;
+  /* Remove any previous bottle-specific CSS */
 }
 
 @keyframes spin {
