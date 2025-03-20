@@ -4,21 +4,16 @@ import "./Cards.css";
 import { Question, questions } from "./questions";
 
 interface CardsProps {
-  numCards?: number;
   onCardStateChange?: (isAnyCardFlipped: boolean) => void;
   onCardsRemainingChange?: (hasCards: boolean) => void;
 }
 
 export const Cards = ({
-  numCards = 10,
   onCardStateChange,
   onCardsRemainingChange,
 }: CardsProps) => {
-  // Use the smaller of numCards or the actual number of questions available
-  const actualNumCards = Math.min(numCards, questions.length);
-
   const handleRestart = () => {
-    const newCards = Array.from({ length: actualNumCards }, (_, index) => ({
+    const newCards = Array.from({ length: questions.length }, (_, index) => ({
       id: index,
       question: questions[index],
       offset: generateRandomOffset(),
@@ -44,14 +39,14 @@ export const Cards = ({
 
   useEffect(() => {
     // Create cards using the questions data
-    const newCards = Array.from({ length: actualNumCards }, (_, index) => ({
+    const newCards = Array.from({ length: questions.length }, (_, index) => ({
       id: index,
       question: questions[index],
       offset: generateRandomOffset(),
       isFlipped: false,
     }));
     setCards(newCards);
-  }, [actualNumCards]);
+  }, []);
 
   useEffect(() => {
     // Notify parent component if any card is flipped

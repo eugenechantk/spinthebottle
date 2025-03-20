@@ -8,6 +8,7 @@ function App() {
   const [isAnyCardFlipped, setIsAnyCardFlipped] = useState(false);
   const [hasSpunOnce, setHasSpunOnce] = useState(false);
   const [cardWasFlicked, setCardWasFlicked] = useState(false);
+  const [hasCards, setHasCards] = useState(true);
 
   const handleSpinStateChange = (spinning: boolean) => {
     setIsSpinning(spinning);
@@ -31,7 +32,16 @@ function App() {
     }
   };
 
+  const handleCardsRemainingChange = (cardsRemain: boolean) => {
+    setHasCards(cardsRemain);
+  };
+
   const getMessage = () => {
+    // Don't show any messages if there are no cards
+    if (!hasCards) {
+      return null;
+    }
+
     if (isSpinning) {
       return null; // No message while spinning
     } else if (hasSpunOnce && !isAnyCardFlipped) {
@@ -52,7 +62,10 @@ function App() {
           {message}
         </span>
       )}
-      <Cards numCards={5} onCardStateChange={handleCardStateChange} />
+      <Cards
+        onCardStateChange={handleCardStateChange}
+        onCardsRemainingChange={handleCardsRemainingChange}
+      />
     </div>
   );
 }
