@@ -1,0 +1,42 @@
+.cards-container {
+  position: relative;
+  width: 200px;
+  height: 280px;
+  margin: 20px auto;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-front {
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+.card-back {
+  background-color: #e44d26;
+  transform: rotateY(180deg);
+  border: 1px solid #c43e1c;
+}
+
+/* Add a wrapper for the flipping animation */
+.card.flipping {
+  transform-origin: center 140%; /* Move origin point below the card */
+}
