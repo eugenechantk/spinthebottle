@@ -161,7 +161,7 @@ export const Card = ({
           <div className="card-face card-back">
             <img src="/card_back.png" alt="Card Back" className="card-image" />
             <div className="absolute inset-0 flex flex-col items-center justify-start p-6 text-center">
-              <div className="flex-1 min-h-0 flex items-center justify-center">
+              <div className="flex-1 min-h-0 flex items-center justify-center p-5">
                 <h2 className="card-title text-xl font-bold mb-2 ">
                   {question.question}
                 </h2>
