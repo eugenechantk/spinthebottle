@@ -21,7 +21,6 @@ export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
     const updateCenterY = () => {
       const viewportHeight = window.innerHeight;
       const cardHeight = 392;
-      const scrollY = window.scrollY;
       // Move up by 80% of viewport height, accounting for card height
       const newCenterY = -(viewportHeight * 0.8 - cardHeight / 2);
       setCenterY(newCenterY);
@@ -133,8 +132,16 @@ export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
           style={{ transformStyle: "preserve-3d" }}
           onClick={handleClick}
         >
-          <div className="card-face card-front" />
-          <div className="card-face card-back" />
+          <div className="card-face card-front">
+            <img
+              src="/card_front.png"
+              alt="Card Front"
+              className="card-image"
+            />
+          </div>
+          <div className="card-face card-back">
+            <img src="/card_back.png" alt="Card Back" className="card-image" />
+          </div>
         </motion.div>
       ) : (
         <motion.div
@@ -147,8 +154,16 @@ export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
           style={{ transformStyle: "preserve-3d" }}
           onClick={handleClick}
         >
-          <div className="card-face card-front" />
-          <div className="card-face card-back" />
+          <div className="card-face card-front">
+            <img
+              src="/card_front.png"
+              alt="Card Front"
+              className="card-image"
+            />
+          </div>
+          <div className="card-face card-back">
+            <img src="/card_back.png" alt="Card Back" className="card-image" />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
