@@ -12,13 +12,28 @@ export const Cards = ({
   onCardStateChange,
   onCardsRemainingChange,
 }: CardsProps) => {
+  // Add a shuffle function to randomize the questions array
+  const shuffleQuestions = (array: Question[]) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   const handleRestart = () => {
-    const newCards = Array.from({ length: questions.length }, (_, index) => ({
-      id: index,
-      question: questions[index],
-      offset: generateRandomOffset(),
-      isFlipped: false,
-    }));
+    // Shuffle questions before creating new cards
+    const shuffledQuestions = shuffleQuestions(questions);
+    const newCards = Array.from(
+      { length: shuffledQuestions.length },
+      (_, index) => ({
+        id: index,
+        question: shuffledQuestions[index],
+        offset: generateRandomOffset(),
+        isFlipped: false,
+      })
+    );
     setCards(newCards);
   };
 
@@ -38,13 +53,17 @@ export const Cards = ({
   });
 
   useEffect(() => {
-    // Create cards using the questions data
-    const newCards = Array.from({ length: questions.length }, (_, index) => ({
-      id: index,
-      question: questions[index],
-      offset: generateRandomOffset(),
-      isFlipped: false,
-    }));
+    // Shuffle questions before creating initial cards
+    const shuffledQuestions = shuffleQuestions(questions);
+    const newCards = Array.from(
+      { length: shuffledQuestions.length },
+      (_, index) => ({
+        id: index,
+        question: shuffledQuestions[index],
+        offset: generateRandomOffset(),
+        isFlipped: false,
+      })
+    );
     setCards(newCards);
   }, []);
 

@@ -1,6 +1,8 @@
+import { Twitter } from "lucide-react";
 import { useState } from "react";
 import "./App.css";
 import { Cards } from "./component/Cards";
+import QuestionsModal from "./component/QuestionsModal";
 import Spinner from "./component/Spinner";
 
 function App() {
@@ -56,6 +58,17 @@ function App() {
 
   return (
     <div className="relative h-full w-full flex flex-col overflow-hidden bg-[#F5F2E9]">
+      <div className="absolute top-4 right-4 left-4 flex flex-row justify-between items-center">
+        <a
+          href="https://x.com/eugenechantk"
+          target="_blank"
+          className="text-gray-600 text-sm flex flex-row items-center gap-2"
+        >
+          Made with ❤️ by Eugene <Twitter className="w-4 h-4 text-gray-500 " />
+        </a>
+        <QuestionsModal />
+      </div>
+
       <Spinner onSpinStateChange={handleSpinStateChange} />
       {message && (
         <span className="text-center w-full block absolute bottom-[200px] text-base px-30 text-gray-600">
