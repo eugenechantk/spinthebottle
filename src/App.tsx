@@ -57,7 +57,7 @@ function App() {
   const message = getMessage();
 
   return (
-    <div className="relative h-full w-full flex flex-col overflow-hidden bg-[#F5F2E9]">
+    <div className="relative h-full w-full flex flex-col overflow-hidden">
       <div className="absolute top-4 right-4 left-4 flex flex-row justify-between items-center">
         <a
           href="https://x.com/eugenechantk"
