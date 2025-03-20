@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { Card } from "./Card";
 import "./Cards.css";
+import { Question, questions } from "./questions";
 
 interface CardsProps {
   numCards?: number;
 }
 
 export const Cards = ({ numCards = 10 }: CardsProps) => {
+  // Use the smaller of numCards or the actual number of questions available
+  const actualNumCards = Math.min(numCards, questions.length);
+
   const [cards, setCards] = useState<
     Array<{
       id: number;
+      question: Question;
       offset: { x: number; y: number; rotation: number };
       isFlipped: boolean;
     }>
@@ -22,13 +27,15 @@ export const Cards = ({ numCards = 10 }: CardsProps) => {
   });
 
   useEffect(() => {
-    const newCards = Array.from({ length: numCards }, (_, index) => ({
+    // Create cards using the questions data
+    const newCards = Array.from({ length: actualNumCards }, (_, index) => ({
       id: index,
+      question: questions[index],
       offset: generateRandomOffset(),
       isFlipped: false,
     }));
     setCards(newCards);
-  }, [numCards]);
+  }, [actualNumCards]);
 
   const handleFlip = (cardId: number) => {
     setCards((prevCards) => {
@@ -50,6 +57,7 @@ export const Cards = ({ numCards = 10 }: CardsProps) => {
         <Card
           key={card.id}
           id={card.id}
+          question={card.question}
           offset={card.offset}
           isFlipped={card.isFlipped}
           isTop={index === cards.length - 1}

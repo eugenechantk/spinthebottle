@@ -1,9 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import "./Cards.css";
+import { Question } from "./questions";
 
 interface CardProps {
   id: number;
+  question: Question;
   offset: {
     x: number;
     y: number;
@@ -14,7 +16,14 @@ interface CardProps {
   onFlip: (id: number) => void;
 }
 
-export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
+export const Card = ({
+  id,
+  question,
+  offset,
+  isFlipped,
+  isTop,
+  onFlip,
+}: CardProps) => {
   const [centerY, setCenterY] = useState(-300);
 
   useEffect(() => {
@@ -163,6 +172,19 @@ export const Card = ({ id, offset, isFlipped, isTop, onFlip }: CardProps) => {
           </div>
           <div className="card-face card-back">
             <img src="/card_back.png" alt="Card Back" className="card-image" />
+            <div className="absolute inset-0 flex flex-col items-center justify-start p-6 text-center">
+              <div className="flex-1 min-h-0 flex items-center justify-center">
+                <h2 className="card-title text-xl font-bold mb-2 ">
+                  {question.question}
+                </h2>
+              </div>
+              <div className="flex flex-col gap-2 items-center justify-center mb-4">
+                <div className="rounded-full w-3 h-3 bg-[#191919]" />
+                <p className="card-description text-xs text-gray-600 uppercase font-mono tracking-wider">
+                  {question.type}
+                </p>
+              </div>
+            </div>
           </div>
         </motion.div>
       )}
