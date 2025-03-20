@@ -1,13 +1,22 @@
 import { motion, useAnimationControls } from "framer-motion";
+import { useState } from "react";
 import "./Spinner.css";
 
-export default function Spinner() {
+interface SpinnerProps {
+  onSpinStateChange?: (isSpinning: boolean) => void;
+}
+
+export default function Spinner({ onSpinStateChange }: SpinnerProps) {
   const controls = useAnimationControls();
+  const [isSpinning, setIsSpinning] = useState(false);
 
   const handleClick = async () => {
     // Generate random number of spins between 20 and 40
     const spins = 20 + Math.random() * 20;
     const degrees = spins * 360; // Remove the negative sign for clockwise rotation
+
+    setIsSpinning(true);
+    if (onSpinStateChange) onSpinStateChange(true);
 
     await controls.start({
       rotate: degrees,
@@ -17,6 +26,9 @@ export default function Spinner() {
         type: "tween",
       },
     });
+
+    setIsSpinning(false);
+    if (onSpinStateChange) onSpinStateChange(false);
   };
 
   return (

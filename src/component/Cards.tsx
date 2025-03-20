@@ -5,9 +5,15 @@ import { Question, questions } from "./questions";
 
 interface CardsProps {
   numCards?: number;
+  onCardStateChange?: (isAnyCardFlipped: boolean) => void;
+  onCardsRemainingChange?: (hasCards: boolean) => void;
 }
 
-export const Cards = ({ numCards = 10 }: CardsProps) => {
+export const Cards = ({
+  numCards = 10,
+  onCardStateChange,
+  onCardsRemainingChange,
+}: CardsProps) => {
   // Use the smaller of numCards or the actual number of questions available
   const actualNumCards = Math.min(numCards, questions.length);
 
@@ -46,6 +52,19 @@ export const Cards = ({ numCards = 10 }: CardsProps) => {
     }));
     setCards(newCards);
   }, [actualNumCards]);
+
+  useEffect(() => {
+    // Notify parent component if any card is flipped
+    if (onCardStateChange) {
+      const isAnyCardFlipped = cards.some((card) => card.isFlipped);
+      onCardStateChange(isAnyCardFlipped);
+    }
+
+    // Notify parent about cards remaining state
+    if (onCardsRemainingChange) {
+      onCardsRemainingChange(cards.length > 0);
+    }
+  }, [cards, onCardStateChange, onCardsRemainingChange]);
 
   const handleFlip = (cardId: number) => {
     setCards((prevCards) => {
