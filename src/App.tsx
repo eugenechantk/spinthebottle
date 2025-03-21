@@ -49,7 +49,7 @@ function App() {
     } else if (hasSpunOnce && !isAnyCardFlipped) {
       return "Pick a card to answer the question!";
     } else if (!isAnyCardFlipped) {
-      return "Spin the bottle to pick the next person";
+      return "Tap the bottle to spin the bottle";
     }
     return null; // No message when a card is flipped
   };
