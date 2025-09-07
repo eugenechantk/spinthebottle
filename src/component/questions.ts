@@ -12,6 +12,19 @@ enum Types {
 
 export const questions = [
   {
+    question: "How would you describe yourself in 3 words?",
+    type: Types.WARMING_UP,
+  },
+  {
+    question: "How would you summarize your life till now in 6 words?",
+    type: Types.WARMING_UP,
+  },
+  {
+    question:
+      "What is something silly/childish that you still do and makes you happy?",
+    type: Types.WARMING_UP,
+  },
+  {
     question: "What are you currently worried you might forget or overlook?",
     type: Types.WARMING_UP,
   },
